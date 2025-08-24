@@ -121,6 +121,14 @@ Edit `src/config.php` to customize:
 - **Secure IDs**: 32-character random hex IDs
 - **Auto-Cleanup**: Expired notes are automatically destroyed
 
+## Code Organization
+
+- **Separation of Concerns**: CSS and JavaScript in dedicated files
+- **Maintainable Styles**: Centralized CSS with utility classes
+- **Modular JavaScript**: Copy functionality in separate module
+- **Clean HTML**: No inline styles or scripts in PHP files
+- **Better Readability**: Easier to understand and modify code
+
 ## File Structure
 
 ```
@@ -134,9 +142,14 @@ distruct-note/
 │   ├── Database.php     # Database connection and queries
 │   └── NoteService.php  # Business logic
 └── public/
+    ├── css/
+    │   └── styles.css   # Application styles
+    ├── js/
+    │   └── copy.js      # Copy functionality
     ├── index.php        # Main application page
     ├── view.php         # Note viewing page
-    └── api.php          # REST API endpoint
+    ├── api.php          # REST API endpoint
+    └── .htaccess        # Security headers
 ```
 
 ## Development
