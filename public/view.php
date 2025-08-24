@@ -71,7 +71,7 @@ if (!$noteId && !$note) {
             </div>
 
             <?php if ($error): ?>
-                <div class="card p-6 mb-6">
+                <div class="card mb-6">
                     <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4">
                         <i class="fas fa-exclamation-triangle"></i> <?= htmlspecialchars($error) ?>
                     </div>
@@ -105,7 +105,7 @@ if (!$noteId && !$note) {
             <?php endif; ?>
 
             <?php if ($note): ?>
-                <div class="card p-6">
+                <div class="card">
                     <div class="flex items-center justify-between mb-6">
                         <h2 class="text-xl font-semibold text-gray-900">Note Content</h2>
                         <div class="text-gray-500 text-sm">

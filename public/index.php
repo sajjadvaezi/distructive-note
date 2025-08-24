@@ -112,7 +112,7 @@ if (rand(1, 100) <= 10) { // 10% chance to run cleanup
 
             <div class="grid md:grid-cols-2 gap-8">
                 <!-- Create Note Form -->
-                <div class="card p-6">
+                <div class="card">
                     <h2 class="text-xl font-semibold text-gray-900 mb-6">Create New Note</h2>
 
                     <form method="POST" class="space-y-4">
@@ -162,7 +162,7 @@ if (rand(1, 100) <= 10) { // 10% chance to run cleanup
                 </div>
 
                 <!-- View Note Form -->
-                <div class="card p-6">
+                <div class="card">
                     <h2 class="text-xl font-semibold text-gray-900 mb-6">View Note</h2>
 
                     <form method="POST" class="space-y-4">
@@ -203,21 +203,21 @@ if (rand(1, 100) <= 10) { // 10% chance to run cleanup
             <div class="mt-16 text-center">
                 <h3 class="text-2xl font-semibold text-gray-900 mb-8">Features</h3>
                 <div class="grid md:grid-cols-3 gap-6">
-                    <div class="card p-6 text-center">
+                    <div class="card text-center">
                         <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-4">
                             <i class="fas fa-shield-alt text-blue-600 text-xl"></i>
                         </div>
                         <h4 class="text-gray-900 font-semibold mb-2">Password Protection</h4>
                         <p class="text-gray-600">Secure your notes with optional passwords</p>
                     </div>
-                    <div class="card p-6 text-center">
+                    <div class="card text-center">
                         <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mx-auto mb-4">
                             <i class="fas fa-fire text-red-600 text-xl"></i>
                         </div>
                         <h4 class="text-gray-900 font-semibold mb-2">Self-Destruct</h4>
                         <p class="text-gray-600">Notes automatically destroy after viewing</p>
                     </div>
-                    <div class="card p-6 text-center">
+                    <div class="card text-center">
                         <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mx-auto mb-4">
                             <i class="fas fa-clock text-green-600 text-xl"></i>
                         </div>
