@@ -6,8 +6,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
       MYSQL_DATABASE: destruct
-      MYSQL_USER: app
-      MYSQL_PASSWORD: apppass
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASS}
     volumes:
       - db_data:/var/lib/mysql
       - ./sql:/docker-entrypoint-initdb.d:ro # <-- init scripts go here (DB container)
@@ -31,9 +31,16 @@ services:
     ports:
       - "8080:80"
     environment:
-      DB_DSN: "mysql:host=db;port=3306;dbname=destruct;charset=utf8mb4"
-      DB_USER: app
-      DB_PASS: apppass
+      DB_DSN: ${DB_DSN}
+      DB_USER: ${DB_USER}
+      DB_PASS: ${DB_PASS}
+      SITE_NAME: ${SITE_NAME}
+      SITE_URL: ${SITE_URL}
+      DEFAULT_MAX_VIEWS: ${DEFAULT_MAX_VIEWS}
+      MAX_VIEWS_LIMIT: ${MAX_VIEWS_LIMIT}
+      NOTE_EXPIRY_DAYS: ${NOTE_EXPIRY_DAYS}
+      ID_LENGTH: ${ID_LENGTH}
+      SALT_ROUNDS: ${SALT_ROUNDS}
     volumes:
       - ./public:/var/www/html # dev bind mounts (override image for live editing)
       - ./src:/var/www/src

@@ -14,7 +14,7 @@ A secure, self-destructing note application with optional password protection an
 
 ## Quick Start
 
-### Using Docker (Recommended)
+### Using Make (Recommended)
 
 1. Clone the repository:
 ```bash
@@ -24,7 +24,22 @@ cd distruct-note
 
 2. Start the application:
 ```bash
-docker-compose up -d
+make start
+```
+
+3. Access the application at `http://localhost:8080`
+
+### Using Docker Directly
+
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd distruct-note
+```
+
+2. Start the application:
+```bash
+docker compose up -d
 ```
 
 3. Access the application at `http://localhost:8080`
@@ -105,13 +120,27 @@ Response:
 
 ## Configuration
 
-Edit `src/config.php` to customize:
+The application uses environment variables for configuration. Edit the `.env` file to customize:
 
-- Database connection settings
-- Default maximum views (default: 1)
-- Maximum views limit (default: 100)
-- Note expiry period (default: 7 days)
-- Site name and URL
+- **Database Settings**: `DB_DSN`, `DB_USER`, `DB_PASS`
+- **Application Settings**: `SITE_NAME`, `SITE_URL`
+- **Security Settings**: `DEFAULT_MAX_VIEWS`, `MAX_VIEWS_LIMIT`, `NOTE_EXPIRY_DAYS`
+- **Advanced Settings**: `ID_LENGTH`, `SALT_ROUNDS`
+
+### Environment Variables
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `DB_DSN` | `mysql:host=db;port=3306;dbname=destruct;charset=utf8mb4` | Database connection string |
+| `DB_USER` | `app` | Database username |
+| `DB_PASS` | `apppass` | Database password |
+| `SITE_NAME` | `Distruct Note` | Application name |
+| `SITE_URL` | `http://localhost:8080` | Application URL |
+| `DEFAULT_MAX_VIEWS` | `1` | Default number of views before destruction |
+| `MAX_VIEWS_LIMIT` | `100` | Maximum allowed views per note |
+| `NOTE_EXPIRY_DAYS` | `7` | Days before notes auto-expire |
+| `ID_LENGTH` | `32` | Length of note IDs |
+| `SALT_ROUNDS` | `12` | Bcrypt salt rounds for passwords |
 
 ## Security Features
 
@@ -133,34 +162,69 @@ Edit `src/config.php` to customize:
 
 ```
 distruct-note/
-├── docker-compose.yaml    # Docker services configuration
-├── Dockerfile            # PHP Apache container setup
+├── .env                  # Environment variables (included for education)
+├── .env.example         # Environment template
+├── Makefile             # Cross-platform development commands
+├── docker-compose.yaml  # Docker services configuration
+├── Dockerfile          # PHP Apache container setup
 ├── sql/
-│   └── init.sql         # Database schema
+│   └── init.sql       # Database schema
 ├── src/
-│   ├── config.php       # Application configuration
-│   ├── Database.php     # Database connection and queries
-│   └── NoteService.php  # Business logic
+│   ├── config.php     # Application configuration
+│   ├── Database.php   # Database connection and queries
+│   └── NoteService.php # Business logic
 └── public/
     ├── css/
-    │   └── styles.css   # Application styles
+    │   └── styles.css # Application styles
     ├── js/
-    │   └── copy.js      # Copy functionality
-    ├── index.php        # Main application page
-    ├── view.php         # Note viewing page
-    ├── api.php          # REST API endpoint
-    └── .htaccess        # Security headers
+    │   └── copy.js    # Copy functionality
+    ├── index.php      # Main application page
+    ├── view.php       # Note viewing page
+    ├── api.php        # REST API endpoint
+    └── .htaccess      # Security headers
 ```
 
 ## Development
 
-### Running Tests
+### Using Make Commands
+
 ```bash
 # Start the application
-docker-compose up -d
+make start
+
+# Check status
+make status
+
+# View logs
+make logs
+
+# Run tests
+make test
+
+# Access shell
+make shell
+
+# Access database
+make db-shell
+
+# Stop application
+make stop
+
+# Clean up everything
+make clean
+
+# Reset everything
+make reset
+```
+
+### Manual Docker Commands
+
+```bash
+# Start the application
+docker compose up -d
 
 # Run cleanup task
-docker-compose exec app php -r "
+docker compose exec app php -r "
 require_once '/var/www/src/NoteService.php';
 \$service = new NoteService();
 \$service->cleanupExpiredNotes();
@@ -170,7 +234,10 @@ require_once '/var/www/src/NoteService.php';
 ### Database Access
 ```bash
 # Connect to MySQL container
-docker-compose exec db mysql -u app -p destruct
+make db-shell
+
+# Or manually:
+docker compose exec db mysql -u app -p destruct
 
 # View notes table
 SELECT * FROM notes WHERE is_destroyed = FALSE;
